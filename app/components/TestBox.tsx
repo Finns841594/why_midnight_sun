@@ -6,7 +6,16 @@ const TestBox = (props: ThreeElements['mesh']) => {
   const meshRef = useRef<THREE.Mesh>(null!);
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
-  useFrame((state, delta) => (meshRef.current.rotation.x += delta));
+  const [angle, setAngle] = useState(0);
+
+  const radius = 1;
+
+  useFrame((state, delta) => {
+    setAngle(angle + delta);
+    const x = radius * Math.cos(angle);
+    const y = radius * Math.sin(angle);
+    meshRef.current.position.set(x, y, meshRef.current.position.z);
+  });
   return (
     <mesh
       {...props}
