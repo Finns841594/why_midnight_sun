@@ -1,8 +1,8 @@
 'use client';
 import { Canvas } from '@react-three/fiber';
-import TestBox from './components/TestBox';
 import { CameraControls } from '@react-three/drei';
 import Ground from './components/Ground';
+import Sun from './components/Sun';
 
 export default function Home() {
   return (
@@ -27,7 +27,7 @@ export default function Home() {
           intensity={Math.PI}
         />
         <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-        <TestBox position={[0, 0, 0]} />
+        <Sun position={[0, 0, 0]} />
         <Ground />
       </Canvas>
     </main>
