@@ -1,4 +1,3 @@
-'use client';
 import { ThreeElements, useFrame } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 
