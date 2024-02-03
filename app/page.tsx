@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { CameraControls } from '@react-three/drei';
 import Ground from './components/Ground';
 import Sun from './components/Sun';
+import House from './components/House';
 
 export default function Home() {
   return (
@@ -19,15 +20,16 @@ export default function Home() {
       >
         <CameraControls />
         <ambientLight intensity={Math.PI / 2} />
-        <spotLight
+        {/* <spotLight
           position={[10, 10, 10]}
           angle={0.15}
           penumbra={1}
           decay={0}
           intensity={Math.PI}
         />
-        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} /> */}
         <Sun position={[0, 0, 0]} />
+        <House />
         <Ground />
       </Canvas>
     </main>

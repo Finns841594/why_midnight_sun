@@ -1,4 +1,4 @@
-import { Grid } from '@react-three/drei';
+import { Grid, Plane } from '@react-three/drei';
 import React from 'react';
 
 function Ground() {
@@ -14,7 +14,19 @@ function Ground() {
     followCamera: false,
     infiniteGrid: true,
   };
-  return <Grid position={[0, -0.01, 0]} args={[10.5, 10.5]} {...gridConfig} />;
+  return (
+    <>
+      <Grid position={[0, -0.01, 0]} args={[10.5, 10.5]} {...gridConfig} />
+      <Plane
+        args={[50, 50]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0, -0.02, 0]}
+        receiveShadow
+      >
+        <meshStandardMaterial />
+      </Plane>
+    </>
+  );
 }
 
 export default Ground;

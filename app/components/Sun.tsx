@@ -38,6 +38,18 @@ function Sun(props: ThreeElements['mesh']) {
       onPointerOver={event => setHover(true)}
       onPointerOut={event => setHover(false)}
     >
+      <spotLight
+        position={tracePositions[tracePositions.length - 1]}
+        angle={0.15}
+        penumbra={1}
+        decay={0}
+        intensity={Math.PI}
+      />
+      <pointLight
+        position={tracePositions[tracePositions.length - 1]}
+        decay={0}
+        intensity={Math.PI}
+      />
       <Sphere args={[0.5]}>
         <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
       </Sphere>
