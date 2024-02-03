@@ -1,12 +1,42 @@
 import { Sphere } from '@react-three/drei';
-import { ThreeElements, useFrame } from '@react-three/fiber';
-import React, { useRef, useState } from 'react';
+import { ThreeElements, useFrame, useThree } from '@react-three/fiber';
+import React, { useMemo, useRef, useState } from 'react';
+import { BufferGeometry, LineBasicMaterial, Vector3 } from 'three';
+import * as THREE from 'three';
+
+interface GlobalTraceLineProps {
+  positions: Vector3[];
+}
+
+const GlobalTraceLine: React.FC<{ positions: Vector3[] }> = ({ positions }) => {
+  const { scene } = useThree();
+  const lineGeometry = useMemo(
+    () => new BufferGeometry().setFromPoints(positions),
+    [positions]
+  );
+  const lineMaterial = useMemo(
+    () => new LineBasicMaterial({ color: 'red', linewidth: 2 }),
+    []
+  );
+
+  useMemo(() => {
+    const line = new THREE.Line(lineGeometry, lineMaterial);
+    scene.add(line);
+    return () => {
+      scene.remove(line);
+    };
+  }, [lineGeometry, lineMaterial, scene]);
+
+  return null; // This component does not render anything itself
+};
 
 function Sun(props: ThreeElements['mesh']) {
   const meshRef = useRef<THREE.Mesh>(null!);
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
   const [angle, setAngle] = useState(0);
+
+  const [tracePositions, setTracePositions] = useState<Vector3[]>([]);
 
   const radius = 1;
 
@@ -16,6 +46,14 @@ function Sun(props: ThreeElements['mesh']) {
     const y = radius * Math.sin(angle);
 
     meshRef.current.position.set(x, y, meshRef.current.position.z);
+
+    const globalPosition = new Vector3();
+
+    // Use getWorldPosition to retrieve the global position of the mesh
+    meshRef.current.getWorldPosition(globalPosition);
+    setTracePositions(prevPositions =>
+      [...prevPositions, globalPosition.clone()].slice(-100)
+    );
   });
   return (
     <mesh
@@ -29,6 +67,7 @@ function Sun(props: ThreeElements['mesh']) {
       <Sphere args={[0.5]}>
         <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
       </Sphere>
+      <GlobalTraceLine positions={tracePositions} />
     </mesh>
   );
 }
