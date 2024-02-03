@@ -1,34 +1,11 @@
 import { Sphere } from '@react-three/drei';
-import { ThreeElements, useFrame, useThree } from '@react-three/fiber';
-import React, { useMemo, useRef, useState } from 'react';
-import { BufferGeometry, LineBasicMaterial, Vector3 } from 'three';
-import * as THREE from 'three';
+import { ThreeElements, useFrame } from '@react-three/fiber';
+import { useRef, useState } from 'react';
+import { Vector3 } from 'three';
+import GlobalTraceLine from './GlobalTraceLine';
 
-interface GlobalTraceLineProps {
-  positions: Vector3[];
-}
-
-const GlobalTraceLine: React.FC<{ positions: Vector3[] }> = ({ positions }) => {
-  const { scene } = useThree();
-  const lineGeometry = useMemo(
-    () => new BufferGeometry().setFromPoints(positions),
-    [positions]
-  );
-  const lineMaterial = useMemo(
-    () => new LineBasicMaterial({ color: 'red', linewidth: 2 }),
-    []
-  );
-
-  useMemo(() => {
-    const line = new THREE.Line(lineGeometry, lineMaterial);
-    scene.add(line);
-    return () => {
-      scene.remove(line);
-    };
-  }, [lineGeometry, lineMaterial, scene]);
-
-  return null; // This component does not render anything itself
-};
+const sunMoveSpeed = 1;
+const radius = 2;
 
 function Sun(props: ThreeElements['mesh']) {
   const meshRef = useRef<THREE.Mesh>(null!);
@@ -38,21 +15,18 @@ function Sun(props: ThreeElements['mesh']) {
 
   const [tracePositions, setTracePositions] = useState<Vector3[]>([]);
 
-  const radius = 1;
-
   useFrame((state, delta) => {
-    setAngle(angle + delta);
+    setAngle(angle + (delta * 1 * sunMoveSpeed) / radius);
     const x = radius * Math.cos(angle);
     const y = radius * Math.sin(angle);
 
     meshRef.current.position.set(x, y, meshRef.current.position.z);
 
     const globalPosition = new Vector3();
+    meshRef.current.getWorldPosition(globalPosition); // I don't know it before that one can assign value like this
 
-    // Use getWorldPosition to retrieve the global position of the mesh
-    meshRef.current.getWorldPosition(globalPosition);
     setTracePositions(prevPositions =>
-      [...prevPositions, globalPosition.clone()].slice(-100)
+      [...prevPositions, globalPosition.clone()].slice(-10)
     );
   });
   return (
