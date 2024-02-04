@@ -4,6 +4,7 @@ import { CameraControls } from '@react-three/drei';
 import Ground from './components/Ground';
 import Sun from './components/Sun';
 import House from './components/House';
+import TestSun from './components/TestSun';
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
         />
         <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} /> */}
         <Sun position={[0, 0, 0]} />
+        <TestSun position={[0, 0, 0]} />
         <House />
         <Ground />
       </Canvas>
