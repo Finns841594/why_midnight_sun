@@ -1,12 +1,23 @@
 import { Sphere } from '@react-three/drei';
-import { ThreeElements, useFrame } from '@react-three/fiber';
+import { MeshProps, ThreeElements, useFrame } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import { Vector3 } from 'three';
 
 const sunMoveSpeed = 1;
-const movingRadius = 2;
 
-function Sun(props: ThreeElements['mesh']) {
+const caculateMovingRadius = (
+  movingRadius: number,
+  offsetFromEquater: number
+) => {
+  return Math.sqrt(movingRadius ** 2 - offsetFromEquater ** 2);
+};
+
+interface SunProps extends MeshProps {
+  movingRadius: number;
+  offsetFromEquater: number;
+}
+
+function Sun({ movingRadius, offsetFromEquater, ...props }: SunProps) {
   const meshRef = useRef<THREE.Mesh>(null!);
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
@@ -14,12 +25,15 @@ function Sun(props: ThreeElements['mesh']) {
 
   const [tracePositions, setTracePositions] = useState<Vector3[]>([]);
 
+  movingRadius = caculateMovingRadius(movingRadius, offsetFromEquater);
+
   useFrame((state, delta) => {
     setAngle(angle + (delta * 1 * sunMoveSpeed) / movingRadius);
     const x = movingRadius * Math.cos(angle);
     const y = movingRadius * Math.sin(angle);
+    const z = offsetFromEquater;
 
-    meshRef.current.position.set(x, y, meshRef.current.position.z);
+    meshRef.current.position.set(x, y, z);
 
     const globalPosition = new Vector3();
     meshRef.current.getWorldPosition(globalPosition); // I don't know it before that one can assign value like this
@@ -36,13 +50,6 @@ function Sun(props: ThreeElements['mesh']) {
       onPointerOver={event => (event.stopPropagation(), setHover(true))} //.stopPropagation helps save the resource by limiting this event here in this component only
       onPointerOut={event => (event.stopPropagation(), setHover(false))}
     >
-      {/* <spotLight
-        position={tracePositions[tracePositions.length - 1]}
-        angle={0.15}
-        penumbra={1}
-        decay={0}
-        intensity={Math.PI}
-      /> */}
       <pointLight
         position={tracePositions[tracePositions.length - 1]}
         decay={0}

@@ -5,21 +5,23 @@ import { useControls } from 'leva';
 import { Circle, Sphere } from '@react-three/drei';
 
 const sunMoveSpeed = 1;
-const radius = 2;
 
 function SkyFromEarth(props: ThreeElements['mesh']) {
   const sunRef = useRef<THREE.Mesh>(null!);
   const skySphereRef = useRef<THREE.Mesh>(null!);
-  const { height, rotateX, rotateY, rotateZ } = useControls({
-    height: { value: 0, min: -2, max: 2, step: 0.1 }, // relates to time of a year
-    rotateX: { value: 0, min: -2, max: 2, step: 0.1 }, // relates to latitude
-    rotateY: { value: 0, min: -2, max: 2, step: 0.1 },
-    rotateZ: { value: 0, min: -2, max: 2, step: 0.1 },
-  });
+  const { height, rotateX, rotateY, rotateZ, movingRadius, offsetFromEquater } =
+    useControls({
+      height: { value: 0, min: -2, max: 2, step: 0.1 }, // relates to time of a year
+      rotateX: { value: 0, min: -2, max: 2, step: 0.1 }, // relates to latitude
+      rotateY: { value: 0, min: -2, max: 2, step: 0.1 },
+      rotateZ: { value: 0, min: -2, max: 2, step: 0.1 },
+      movingRadius: { value: 2, min: 1, max: 10, step: 0.2 },
+      offsetFromEquater: { value: 0, min: -1, max: 1, step: 0.1 },
+    });
   const [angle, setAngle] = useState(0);
 
   useFrame((state, delta) => {
-    setAngle(angle + (delta * 1 * sunMoveSpeed) / radius);
+    setAngle(angle + (delta * 1 * sunMoveSpeed) / movingRadius);
     // const z = radius * Math.sin(angle);
     sunRef.current.position.set(
       sunRef.current.position.x,
@@ -31,11 +33,14 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
   return (
     <>
       <mesh {...props} ref={sunRef}>
-        <Sun />
-        <Circle args={[radius]}>
+        <Sun
+          movingRadius={movingRadius}
+          offsetFromEquater={offsetFromEquater}
+        />
+        <Circle args={[movingRadius]}>
           <meshStandardMaterial color={'hotpink'} />
         </Circle>
-        <Sphere args={[radius]}>
+        <Sphere args={[movingRadius]}>
           <meshStandardMaterial transparent opacity={0.3} color={'hotpink'} />
         </Sphere>
       </mesh>
