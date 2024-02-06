@@ -3,18 +3,11 @@ import { useRef, useState } from 'react';
 
 const House = (props: ThreeElements['mesh']) => {
   const meshRef = useRef<THREE.Mesh>(null!);
-  const [hovered, setHover] = useState(false);
 
   return (
-    <mesh
-      {...props}
-      ref={meshRef}
-      scale={1}
-      onPointerOver={event => setHover(true)}
-      onPointerOut={event => setHover(false)}
-    >
+    <mesh {...props} ref={meshRef} scale={1} castShadow>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+      <meshStandardMaterial color={'orange'} />
     </mesh>
   );
 };

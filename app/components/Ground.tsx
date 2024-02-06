@@ -23,7 +23,7 @@ function Ground() {
         position={[0, -0.02, 0]}
         receiveShadow
       >
-        <meshStandardMaterial />
+        <meshStandardMaterial transparent opacity={0.5} />
       </Plane>
     </>
   );

@@ -2,15 +2,9 @@ import { Sphere } from '@react-three/drei';
 import { MeshProps, ThreeElements, useFrame } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import { Vector3 } from 'three';
+import { caculateMovingRadius } from '../util/utilies';
 
 const sunMoveSpeed = 1;
-
-const caculateMovingRadius = (
-  movingRadius: number,
-  offsetFromEquater: number
-) => {
-  return Math.sqrt(movingRadius ** 2 - offsetFromEquater ** 2);
-};
 
 interface SunProps extends MeshProps {
   movingRadius: number;
