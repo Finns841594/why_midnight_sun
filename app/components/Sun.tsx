@@ -47,7 +47,9 @@ function Sun({ movingRadius, offsetFromEquater, ...props }: SunProps) {
       <pointLight
         position={tracePositions[tracePositions.length - 1]}
         decay={0}
-        intensity={Math.PI}
+        intensity={2 * Math.PI}
+        // shadow-mapSize-width={2048} //Increase shadow resolution
+        // shadow-mapSize-height={2048}
         castShadow
       />
       <Sphere args={[0.5]}>
