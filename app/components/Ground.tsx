@@ -1,4 +1,4 @@
-import { Grid, Plane } from '@react-three/drei';
+import { Circle, Grid, Plane } from '@react-three/drei';
 import React from 'react';
 
 function Ground() {
@@ -17,14 +17,14 @@ function Ground() {
   return (
     <>
       <Grid position={[0, -0.01, 0]} args={[10.5, 10.5]} {...gridConfig} />
-      <Plane
-        args={[50, 50]}
+      <Circle
+        args={[25]}
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, -0.02, 0]}
         receiveShadow
       >
         <meshStandardMaterial transparent opacity={0.5} />
-      </Plane>
+      </Circle>
     </>
   );
 }

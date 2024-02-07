@@ -6,17 +6,34 @@ import { Circle, Sphere, Torus } from '@react-three/drei';
 import { caculateMovingRadius } from '../util/utilies';
 
 const sunMoveSpeed = 1;
+const defaultMovingRadius = 10;
+const tropicRadian = (23.5 * Math.PI) / 180;
 
 function SkyFromEarth(props: ThreeElements['mesh']) {
   const skySphereRef = useRef<THREE.Mesh>(null!);
   const { height, rotateX, rotateY, rotateZ, movingRadius, offsetFromEquater } =
     useControls({
       height: { value: 0, min: -2, max: 2, step: 0.1 },
-      rotateX: { value: 0, min: -2, max: 2, step: 0.1 }, // relates to latitude
+      rotateX: {
+        value: 0,
+        min: -Math.PI / 2,
+        max: Math.PI / 2,
+        step: Math.PI / 90,
+      }, // relates to latitude
       rotateY: { value: 0, min: -2, max: 2, step: 0.1 },
       rotateZ: { value: 0, min: -2, max: 2, step: 0.1 },
-      movingRadius: { value: 10, min: 1, max: 20, step: 0.2 },
-      offsetFromEquater: { value: 0, min: -1, max: 1, step: 0.1 }, // relates to time of a year
+      movingRadius: {
+        value: defaultMovingRadius,
+        min: 1,
+        max: 2 * defaultMovingRadius,
+        step: 0.2,
+      },
+      offsetFromEquater: {
+        value: 0,
+        min: -10 * Math.sin(tropicRadian),
+        max: 10 * Math.sin(tropicRadian),
+        step: 0.01,
+      }, // relates to time of a year
     });
   const [angle, setAngle] = useState(0);
 
@@ -43,7 +60,7 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
             caculateMovingRadius(movingRadius, offsetFromEquater),
             0.7,
             3,
-            100,
+            48,
           ]}
           position={[0, 0, offsetFromEquater]}
         >
