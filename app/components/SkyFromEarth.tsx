@@ -66,7 +66,7 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
             transparent
             opacity={0.2}
             wireframe
-            color={'hotpink'}
+            color={'royalblue'}
           />
         </Sphere>
       </mesh>

@@ -9,7 +9,7 @@ const Annotation = ({ text }: AnnotationProps) => (
     <Text3D
       height={0.1}
       letterSpacing={-0.05}
-      size={0.5}
+      size={0.4}
       font="/Inter_Bold.json"
     >
       {text}

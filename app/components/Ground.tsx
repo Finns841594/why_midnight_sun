@@ -1,5 +1,6 @@
-import { Circle, Grid, Plane } from '@react-three/drei';
+import { Circle, Grid } from '@react-three/drei';
 import React from 'react';
+import { DoubleSide } from 'three';
 
 function Ground() {
   const gridConfig = {
@@ -23,7 +24,7 @@ function Ground() {
         position={[0, -0.02, 0]}
         receiveShadow
       >
-        <meshStandardMaterial transparent opacity={0.5} />
+        <meshStandardMaterial transparent opacity={0.5} side={DoubleSide} />
       </Circle>
     </>
   );
