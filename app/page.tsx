@@ -20,7 +20,6 @@ export default function Home() {
       >
         <CameraControls />
         <ambientLight intensity={Math.PI / 2} />
-        {/* <Sun position={[0, 0, 0]} /> */}
         <SkyFromEarth position={[0, 0, 0]} rotation={[0, 0, 0]} />
         <House />
         <Ground />

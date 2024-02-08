@@ -2,7 +2,6 @@ import { Sphere } from '@react-three/drei';
 import { MeshProps, ThreeElements, useFrame } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import { Vector3 } from 'three';
-import { caculateMovingRadius } from '../util/utilies';
 
 const sunMoveSpeed = 1;
 

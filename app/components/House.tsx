@@ -17,7 +17,7 @@ const House = (props: ThreeElements['mesh']) => {
         color: 'blue',
         side: THREE.DoubleSide,
       });
-      console.log(mesh);
+      // console.log(mesh);
     }
   });
   return (
