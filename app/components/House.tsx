@@ -24,7 +24,7 @@ const House = (props: ThreeElements['mesh']) => {
     <mesh {...props} ref={meshRef} scale={1}>
       {/* <boxGeometry args={[1, 1, 1]} /> */}
       {/* <meshStandardMaterial color={'orange'} /> */}
-      <primitive object={gltf.scene} scale={2} />;
+      <primitive object={gltf.scene} scale={2} />
     </mesh>
   );
 };

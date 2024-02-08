@@ -1,9 +1,17 @@
-import { ThreeElements, useFrame } from '@react-three/fiber';
-import React, { useRef, useState } from 'react';
+import { ThreeElements, useFrame, useThree } from '@react-three/fiber';
+import React, { useEffect, useRef, useState } from 'react';
 import Sun from './Sun';
 import { useControls } from 'leva';
 import { Circle, Sphere, Torus } from '@react-three/drei';
 import { caculateMovingRadius } from '../util/utilies';
+import {
+  TorusGeometry,
+  Vector3,
+  SphereGeometry,
+  MeshBasicMaterial,
+  Mesh,
+} from 'three';
+import SkyClock from './SkyClock';
 
 const sunMoveSpeed = 1;
 const defaultMovingRadius = 10;
@@ -11,6 +19,7 @@ const tropicRadian = (23.5 * Math.PI) / 180;
 
 function SkyFromEarth(props: ThreeElements['mesh']) {
   const skySphereRef = useRef<THREE.Mesh>(null!);
+  const torusRef = useRef<THREE.Mesh>(null);
   const { height, rotateX, rotateY, rotateZ, movingRadius, offsetFromEquater } =
     useControls({
       height: { value: 0, min: -2, max: 2, step: 0.1 },
@@ -35,7 +44,7 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
         step: 0.01,
       }, // relates to time of a year
     });
-  const [angle, setAngle] = useState(0);
+  const [angle, setAngle] = useState(45);
 
   useFrame((state, delta) => {
     setAngle(angle + (delta * 1 * sunMoveSpeed) / movingRadius);
@@ -47,6 +56,7 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
     );
     skySphereRef.current.rotation.set(rotateX, rotateY, rotateZ);
   });
+
   return (
     <>
       <mesh {...props} ref={skySphereRef}>
@@ -55,7 +65,8 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
           offsetFromEquater={offsetFromEquater}
         />
         {/* Make thie Torus into a clock */}
-        <Torus
+        {/* <Torus
+          ref={torusRef}
           args={[
             caculateMovingRadius(movingRadius, offsetFromEquater),
             0.7,
@@ -65,7 +76,11 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
           position={[0, 0, offsetFromEquater]}
         >
           <meshStandardMaterial color={'hotpink'} wireframe />
-        </Torus>
+        </Torus> */}
+        <SkyClock
+          radius={caculateMovingRadius(movingRadius, offsetFromEquater)}
+          position={[0, 0, offsetFromEquater]}
+        />
         <Sphere args={[movingRadius]}>
           <meshStandardMaterial
             transparent
