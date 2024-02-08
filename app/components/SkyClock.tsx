@@ -1,8 +1,6 @@
-'use client';
 import { MeshProps } from '@react-three/fiber';
 import React from 'react';
 import { Euler, Vector3 } from 'three';
-import { Text } from '@react-three/drei';
 import dynamic from 'next/dynamic';
 import { timeString } from '../util/datas';
 
@@ -39,16 +37,16 @@ const SkyClock = ({ radius, ...props }: SkyClockProps) => {
       {marks.map((mark, index) => (
         <mesh key={index} position={mark.position} rotation={mark.rotation}>
           <boxGeometry args={[1, 0.1, 0.1]} />
-          <meshBasicMaterial color={0xff0000} />
+          <meshBasicMaterial color={0xcccccc} />
         </mesh>
       ))}
       {hourMarks.map((mark, index) => {
         console.log('generating');
         return (
           <mesh key={index} position={mark.position} rotation={mark.rotation}>
-            {/* <Annotation text="hello" /> */}
+            {/* <Annotation /> */}
             <boxGeometry args={[2, 0.1, 0.1]} />
-            <meshBasicMaterial color={0xff0000} />
+            <meshBasicMaterial color={0xaaaaaa} />
           </mesh>
         );
       })}

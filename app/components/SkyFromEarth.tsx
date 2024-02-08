@@ -62,12 +62,7 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
           position={[0, 0, offsetFromEquater]}
         />
         <Sphere args={[movingRadius]}>
-          <meshStandardMaterial
-            transparent
-            opacity={0.3}
-            wireframe
-            color={'hotpink'}
-          />
+          <meshStandardMaterial wireframe color={'hotpink'} />
         </Sphere>
       </mesh>
     </>
