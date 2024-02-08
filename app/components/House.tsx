@@ -14,7 +14,7 @@ const House = (props: ThreeElements['mesh']) => {
       // mesh.castShadow = true;
       // mesh.receiveShadow = true;
       mesh.material = new THREE.MeshStandardMaterial({
-        color: 'blue',
+        color: 'white',
         side: THREE.DoubleSide,
       });
       // console.log(mesh);
