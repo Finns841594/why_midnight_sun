@@ -11,18 +11,18 @@ const SkyClock = ({ radius, ...props }: SkyClockProps) => {
 
   for (let i = 0; i <= 24; i++) {
     const angle = (i / 24) * Math.PI * 2;
-    const x = 10 * Math.cos(angle);
-    const y = 10 * Math.sin(angle);
+    const x = radius * Math.cos(angle);
+    const y = radius * Math.sin(angle);
     marks.push({
       position: new Vector3(x, y, 0),
-      rotation: new Euler(0, 0, angle + Math.PI / 2), // Rotation around Z-axis
+      rotation: new Euler(0, 0, angle), // Rotation around Z-axis
     });
   }
   return (
     <mesh {...props}>
       {marks.map((mark, index) => (
         <mesh key={index} position={mark.position} rotation={mark.rotation}>
-          <boxGeometry args={[0.1, 2, 0.1]} />
+          <boxGeometry args={[2, 0.1, 0.1]} />
           <meshBasicMaterial color={0xff0000} />
         </mesh>
       ))}

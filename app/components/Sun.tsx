@@ -8,10 +8,9 @@ const sunMoveSpeed = 1;
 
 interface SunProps extends MeshProps {
   movingRadius: number;
-  offsetFromEquater: number;
 }
 
-function Sun({ movingRadius, offsetFromEquater, ...props }: SunProps) {
+function Sun({ movingRadius, ...props }: SunProps) {
   const meshRef = useRef<THREE.Mesh>(null!);
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
@@ -19,15 +18,12 @@ function Sun({ movingRadius, offsetFromEquater, ...props }: SunProps) {
 
   const [tracePositions, setTracePositions] = useState<Vector3[]>([]);
 
-  movingRadius = caculateMovingRadius(movingRadius, offsetFromEquater);
-
   useFrame((state, delta) => {
     setAngle(angle + (delta * 1 * sunMoveSpeed) / movingRadius);
     const x = movingRadius * Math.cos(angle);
     const y = movingRadius * Math.sin(angle);
-    const z = offsetFromEquater;
 
-    meshRef.current.position.set(x, y, z);
+    meshRef.current.position.set(x, y, meshRef.current.position.z);
 
     const globalPosition = new Vector3();
     meshRef.current.getWorldPosition(globalPosition); // I don't know it before that one can assign value like this
