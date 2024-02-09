@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/react": "^2.2.9",
     "@react-three/drei": "^9.97.0",
     "@react-three/fiber": "^8.15.16",
     "@types/three": "^0.161.1",
+    "framer-motion": "^11.0.3",
     "leva": "^0.9.35",
     "next": "14.1.0",
     "react": "^18",
