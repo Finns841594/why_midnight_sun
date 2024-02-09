@@ -49,8 +49,6 @@ const SkyClock = ({ radius, ...props }: SkyClockProps) => {
         return (
           <mesh key={index} position={mark.position} rotation={mark.rotation}>
             <Annotation text={timeString[index]} />
-            {/* <boxGeometry args={[2, 0.1, 0.1]} />
-            <meshBasicMaterial color={0xaaaaaa} /> */}
           </mesh>
         );
       })}

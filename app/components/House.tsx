@@ -1,8 +1,10 @@
 import { ThreeElements } from '@react-three/fiber';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
+
+// Have an idea that the house changes when season changes
 
 const House = (props: ThreeElements['mesh']) => {
   const meshRef = useRef<THREE.Mesh>(null!);
