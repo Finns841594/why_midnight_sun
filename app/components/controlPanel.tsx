@@ -1,4 +1,5 @@
 import { Slider } from '@nextui-org/react';
+import { useControls } from 'leva';
 import { useState } from 'react';
 
 const daysMark = [
@@ -22,10 +23,17 @@ const daysMark = [
 
 const ControlPanel = () => {
   const [dateInNumber, setDateInNumber] = useState<number>(1);
-  const handleChange = (value: number | number[]) => {
-    const newValue = Array.isArray(value) ? value[0] : value;
+  const [{}, set] = useControls(() => ({ rotateX: 0, offsetFromEquater: 0 }));
+  3;
+  const handleChangeDate = (value: number | number[]) => {
+    let newValue = Array.isArray(value) ? value[0] : value;
     setDateInNumber(newValue);
-    console.log(`Selected value: ${newValue}`);
+    const caculatedNewValue = Math.sin((newValue * 2 * Math.PI) / 365);
+    set({ offsetFromEquater: caculatedNewValue });
+  };
+  const handleChangeLatitude = (value: number | number[]) => {
+    let newValue = Array.isArray(value) ? value[0] : value;
+    set({ rotateX: newValue });
   };
   return (
     <div className="md:w-3/4 -mt-20 mx-auto flex md:flex-row gap-8 md:justify-between">
@@ -37,7 +45,7 @@ const ControlPanel = () => {
         maxValue={365}
         minValue={1}
         value={dateInNumber}
-        onChange={handleChange}
+        onChange={handleChangeDate}
         defaultValue={0}
         className="max-w-md"
         showTooltip
@@ -55,6 +63,7 @@ const ControlPanel = () => {
         minValue={0}
         defaultValue={0}
         className="max-w-md"
+        onChange={handleChangeLatitude}
       />
     </div>
   );

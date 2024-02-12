@@ -1,9 +1,12 @@
 import { ThreeElements, useFrame, useThree } from '@react-three/fiber';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Sun from './Sun';
 import { useControls } from 'leva';
 import { Sphere } from '@react-three/drei';
-import { caculateMovingRadius } from '../util/utilies';
+import {
+  caculateMovingRadiusByOffset,
+  fromDegreeToRadian,
+} from '../util/utilies';
 import SkyClock from './SkyClock';
 
 const sunMoveSpeed = 1;
@@ -16,9 +19,9 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
     useControls({
       rotateX: {
         value: 0,
-        min: -Math.PI / 2,
-        max: Math.PI / 2,
-        step: Math.PI / 90,
+        min: 0,
+        max: 90,
+        step: 1,
       }, // relates to latitude
       rotateY: { value: 0, min: -2, max: 2, step: 0.1 },
       rotateZ: { value: 0, min: -2, max: 2, step: 0.1 },
@@ -30,23 +33,28 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
       },
       offsetFromEquater: {
         value: 0,
-        min: -10 * Math.sin(tropicRadian),
-        max: 10 * Math.sin(tropicRadian),
+        min: -defaultMovingRadius * Math.sin(tropicRadian),
+        max: defaultMovingRadius * Math.sin(tropicRadian),
         step: 0.01,
       }, // relates to time of a year
     });
 
   useFrame((state, delta) => {
-    skySphereRef.current.rotation.set(rotateX, rotateY, rotateZ);
+    skySphereRef.current.rotation.set(
+      -fromDegreeToRadian(rotateX),
+      rotateY,
+      rotateZ
+    );
   });
 
   const [caculatedMovingRadus, setCaculatedMovingRadus] = useState(() =>
-    caculateMovingRadius(movingRadius, offsetFromEquater)
+    caculateMovingRadiusByOffset(movingRadius, offsetFromEquater)
   );
 
   useEffect(() => {
+    // let offsetFromEquaterControlled = dateInNumber * movingRadius * Math.sin(tropicRadian) / 365
     setCaculatedMovingRadus(
-      caculateMovingRadius(movingRadius, offsetFromEquater)
+      caculateMovingRadiusByOffset(movingRadius, offsetFromEquater)
     );
   }, [movingRadius, offsetFromEquater]);
 
