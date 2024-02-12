@@ -8,3 +8,23 @@ export const caculateMovingRadiusByOffset = (
 export const fromDegreeToRadian = (degree: number) => {
   return (degree * Math.PI) / 180;
 };
+
+export const distanceOffsetFromEquaterByDegree = (
+  degree: number,
+  radius = 10
+) => {
+  const radiance = fromDegreeToRadian(degree);
+  return radius * Math.sin(radiance);
+};
+
+export const distanceOffsetFromEquaterByDay = (
+  day: number,
+  equinoxDay = 79,
+  tropicLatitud = 23.5
+) => {
+  const distance =
+    Math.sin(((day - equinoxDay) * 2 * Math.PI) / 365) *
+    Math.sin(fromDegreeToRadian(tropicLatitud)) *
+    10;
+  return distance;
+};

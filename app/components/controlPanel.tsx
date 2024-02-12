@@ -1,6 +1,10 @@
 import { Slider } from '@nextui-org/react';
 import { useControls } from 'leva';
 import { useState } from 'react';
+import {
+  distanceOffsetFromEquaterByDay,
+  fromDegreeToRadian,
+} from '../util/utilies';
 
 const daysMark = [
   {
@@ -22,13 +26,16 @@ const daysMark = [
 ];
 
 const ControlPanel = () => {
-  const [dateInNumber, setDateInNumber] = useState<number>(1);
-  const [{}, set] = useControls(() => ({ rotateX: 0, offsetFromEquater: 0 }));
+  const [dateInNumber, setDateInNumber] = useState<number>(79);
+  const [{ rotateX, offsetFromEquater }, set] = useControls(() => ({
+    rotateX: 0,
+    offsetFromEquater: 0,
+  }));
   3;
   const handleChangeDate = (value: number | number[]) => {
     let newValue = Array.isArray(value) ? value[0] : value;
     setDateInNumber(newValue);
-    const caculatedNewValue = Math.sin((newValue * 2 * Math.PI) / 365);
+    const caculatedNewValue = distanceOffsetFromEquaterByDay(newValue);
     set({ offsetFromEquater: caculatedNewValue });
   };
   const handleChangeLatitude = (value: number | number[]) => {
@@ -46,7 +53,6 @@ const ControlPanel = () => {
         minValue={1}
         value={dateInNumber}
         onChange={handleChangeDate}
-        defaultValue={0}
         className="max-w-md"
         showTooltip
         tooltipProps={{
@@ -61,7 +67,7 @@ const ControlPanel = () => {
         step={0.1}
         maxValue={90}
         minValue={0}
-        defaultValue={0}
+        value={rotateX}
         className="max-w-md"
         onChange={handleChangeLatitude}
       />

@@ -5,13 +5,13 @@ import { useControls } from 'leva';
 import { Sphere } from '@react-three/drei';
 import {
   caculateMovingRadiusByOffset,
+  distanceOffsetFromEquaterByDegree,
   fromDegreeToRadian,
 } from '../util/utilies';
 import SkyClock from './SkyClock';
 
 const sunMoveSpeed = 1;
 const defaultMovingRadius = 10;
-const tropicRadian = (23.5 * Math.PI) / 180;
 
 function SkyFromEarth(props: ThreeElements['mesh']) {
   const skySphereRef = useRef<THREE.Mesh>(null!);
@@ -19,7 +19,7 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
     useControls({
       rotateX: {
         value: 0,
-        min: 0,
+        min: -90,
         max: 90,
         step: 1,
       }, // relates to latitude
@@ -33,15 +33,15 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
       },
       offsetFromEquater: {
         value: 0,
-        min: -defaultMovingRadius * Math.sin(tropicRadian),
-        max: defaultMovingRadius * Math.sin(tropicRadian),
+        min: -distanceOffsetFromEquaterByDegree(23.5),
+        max: distanceOffsetFromEquaterByDegree(23.5),
         step: 0.01,
       }, // relates to time of a year
     });
 
   useFrame((state, delta) => {
     skySphereRef.current.rotation.set(
-      -fromDegreeToRadian(rotateX),
+      fromDegreeToRadian(-rotateX),
       rotateY,
       rotateZ
     );
