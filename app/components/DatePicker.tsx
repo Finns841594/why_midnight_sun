@@ -1,24 +1,27 @@
 import { Button, Slider } from '@nextui-org/react';
 import { useControls } from 'leva';
 import { useState } from 'react';
-import { distanceOffsetFromEquaterByDay } from '../util/utilies';
+import {
+  dayOfYearToDate,
+  distanceOffsetFromEquaterByDay,
+} from '../util/utilies';
 
 const daysMark = [
   {
     value: 79, // 20 March
-    label: 'spring equinox',
+    label: 'Spring Equinox',
   },
   {
     value: 171, // 20 June
-    label: 'summer soltstice',
+    label: 'Summer Solstice',
   },
   {
-    value: 242, // 20 June
-    label: 'autumnal soltstice',
+    value: 265, // 22 Sep
+    label: 'Autumnal Equinox',
   },
   {
     value: 355, // 21 Dec
-    label: 'winter soltstice',
+    label: 'Winter Solstice',
   },
 ];
 
@@ -41,7 +44,7 @@ const DatePicker = () => {
   return (
     <div className="w-full flex flex-col gap-4">
       <Slider
-        label="Number of the day"
+        label="Date"
         color="foreground"
         step={1}
         maxValue={365}
@@ -55,6 +58,7 @@ const DatePicker = () => {
             daysMark.find(item => item.value === dateInNumber)?.label ||
             dateInNumber,
         }}
+        renderValue={() => <p>{dayOfYearToDate(dateInNumber)}</p>}
       />
       <div className="grid grid-cols-2 gap-2">
         {daysMark.map(item => (
