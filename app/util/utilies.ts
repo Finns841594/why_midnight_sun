@@ -19,12 +19,13 @@ export const distanceOffsetFromEquaterByDegree = (
 
 export const distanceOffsetFromEquaterByDay = (
   day: number,
+  radius = 10,
   equinoxDay = 79,
   tropicLatitud = 23.5
 ) => {
   const distance =
     Math.sin(((day - equinoxDay) * 2 * Math.PI) / 365) *
     Math.sin(fromDegreeToRadian(tropicLatitud)) *
-    10;
+    radius;
   return distance;
 };
