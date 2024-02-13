@@ -39,11 +39,10 @@ const DatePicker = () => {
     set({ offsetFromEquater: caculatedNewValue });
   };
   return (
-    <div className="w-full flex-row">
+    <div className="w-full flex flex-col gap-4">
       <Slider
-        label="Days"
+        label="Number of the day"
         color="foreground"
-        marks={daysMark}
         step={1}
         maxValue={365}
         minValue={1}
@@ -57,12 +56,13 @@ const DatePicker = () => {
             dateInNumber,
         }}
       />
-      <div>
+      <div className="grid grid-cols-2 gap-2">
         {daysMark.map(item => (
           <Button
             key={item.label}
-            size="sm"
-            onClick={e => handleChangeDate(79)}
+            className="sm w-[150px]"
+            variant="bordered"
+            onClick={e => handleChangeDate(item.value)}
           >
             {item.label}
           </Button>

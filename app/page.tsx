@@ -8,13 +8,13 @@ import ControlPanel from './components/controlPanel';
 
 export default function Home() {
   return (
-    <main className="flex flex-col md:flex-row items-center p-8 mx-auto">
+    <main className="flex flex-col md:flex-row p-8 gap-8 mx-auto">
       <Canvas
         shadows
         camera={{ position: [0, 0, 5], fov: 60 }}
         style={{
           width: '1200px',
-          height: '800px',
+          height: '750px',
           border: '1px solid #ffffff',
           borderRadius: '6px',
         }}
