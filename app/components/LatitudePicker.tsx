@@ -46,7 +46,7 @@ const LatitudePicker = () => {
               filter: 'grayscale(100%)',
             }}
           >
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            <TileLayer url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             <Polyline
               positions={[
                 [rotateX, -180],

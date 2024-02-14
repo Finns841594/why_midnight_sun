@@ -1,5 +1,5 @@
 import { Sphere } from '@react-three/drei';
-import { MeshProps, ThreeElements, useFrame } from '@react-three/fiber';
+import { MeshProps, useFrame } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import { Vector3 } from 'three';
 
@@ -11,8 +11,6 @@ interface SunProps extends MeshProps {
 
 function Sun({ movingRadius, ...props }: SunProps) {
   const meshRef = useRef<THREE.Mesh>(null!);
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
   const [angle, setAngle] = useState(0);
 
   const [tracePositions, setTracePositions] = useState<Vector3[]>([]);
@@ -31,14 +29,7 @@ function Sun({ movingRadius, ...props }: SunProps) {
     );
   });
   return (
-    <mesh
-      {...props}
-      ref={meshRef}
-      scale={active ? 1.5 : 1}
-      onClick={event => setActive(!active)}
-      onPointerOver={event => (event.stopPropagation(), setHover(true))} //.stopPropagation helps save the resource by limiting this event here in this component only
-      onPointerOut={event => (event.stopPropagation(), setHover(false))}
-    >
+    <mesh {...props} ref={meshRef} scale={1}>
       <pointLight
         position={tracePositions[tracePositions.length - 1]}
         decay={0}
@@ -48,7 +39,7 @@ function Sun({ movingRadius, ...props }: SunProps) {
         castShadow
       />
       <Sphere args={[0.5]}>
-        <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+        <meshBasicMaterial color={'orange'} />
       </Sphere>
     </mesh>
   );

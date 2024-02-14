@@ -72,9 +72,9 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
         <Sphere args={[movingRadius]}>
           <meshStandardMaterial
             transparent
-            opacity={0.2}
+            opacity={0.1}
             wireframe
-            color={'royalblue'}
+            color={'white'}
           />
         </Sphere>
       </mesh>

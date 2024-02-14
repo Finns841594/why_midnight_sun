@@ -19,7 +19,7 @@ const Annotation = ({ text }: AnnotationProps) => {
         font="/Inter_Bold.json"
       >
         {text}
-        <meshStandardMaterial color={isNight ? '#4469ff' : '#ffca44'} />
+        <meshBasicMaterial color={isNight ? '#4469ff' : '#ffca44'} />
         {/* should pick two prettier color */}
       </Text3D>
     </Center>

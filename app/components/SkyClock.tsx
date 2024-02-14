@@ -45,7 +45,6 @@ const SkyClock = ({ radius, ...props }: SkyClockProps) => {
         </mesh>
       ))}
       {hourMarks.map((mark, index) => {
-        console.log('generating');
         return (
           <mesh key={index} position={mark.position} rotation={mark.rotation}>
             <Annotation text={timeString[index]} />
