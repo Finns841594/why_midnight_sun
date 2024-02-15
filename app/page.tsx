@@ -1,10 +1,14 @@
 'use client';
 import { Canvas } from '@react-three/fiber';
 import { CameraControls } from '@react-three/drei';
+import dynamic from 'next/dynamic';
 import Ground from './components/Ground';
 import House from './components/House';
 import SkyFromEarth from './components/SkyFromEarth';
-import ControlPanel from './components/controlPanel';
+
+const ControlPanel = dynamic(() => import('./components/controlPanel'), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
