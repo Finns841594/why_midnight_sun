@@ -1,5 +1,7 @@
 ## Why Midnight Sun
 
+![Intro](./public/whyMidnightSun.gif)
+
 I was fascinated by the evening sun when I first arrived in Stockholm. It took me a little bit of time to understand why.
 
 There are many articles explaining this, but I don't find them very intuitive.

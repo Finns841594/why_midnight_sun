@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <main className="flex flex-col p-4 md:p-8 gap-8 mx-auto">
       <Header />
-      <section className="flex flex-col md:flex-row gap-8">
+      <section className="flex flex-col md:flex-row gap-8 mx-auto">
         <div className="w-[340px] md:w-[950px] md:h-[750px] h-[240px]">
           <Canvas
             shadows
