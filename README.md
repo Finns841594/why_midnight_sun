@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Why Midnight Sun
 
-## Getting Started
+I was fascinated by the evening sun when I first arrived in Stockholm. It took me a little bit of time to understand why.
 
-First, run the development server:
+There are many articles explaining this, but I don't find them very intuitive.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+So, I built this interactive app to help people like me to understand this phenomenon in an easier and more intuitive way.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## App Introduction
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Science part behind this app
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Midnight Sun is primarily observed within the Arctic and Antarctic Circles, where the sun remains visible at the local midnight around the summer solstice. The app leverages interactive 3D models and simulations to demonstrate how the sun is moving in the different time of the year at the different places. Users can manipulate variables such as time of year and geographical latitude to see how these factors influence the occurrence of the Midnight Sun, thereby gaining a deeper understanding of this.
 
-## Learn More
+### Tech stacks
 
-To learn more about Next.js, take a look at the following resources:
+- [TypeScript](https://www.typescriptlang.org)
+- [Next.js](https://nextjs.org)
+- [Three.js](https://threejs.org)
+- [React Three Fiber GitHub](https://github.com/pmndrs/react-three-fiber)
+- [Drei GitHub](https://github.com/pmndrs/drei)
+- [React-Leaflet](https://react-leaflet.js.org)
+- [NextUI](https://nextui.org)
+- [TailwindCSS](https://tailwindcss.com)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Run Locally
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+No envrionment variables are needed.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Clone the project by `git clone https://github.com/Finns841594/why_midnight_sun`
+2. Install dependencies by `npm i`
+3. Run locally by `npm run dev`
