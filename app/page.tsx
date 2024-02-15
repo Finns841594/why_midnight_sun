@@ -17,7 +17,7 @@ export default function Home() {
     <main className="flex flex-col p-4 md:p-8 gap-8 mx-auto">
       <Header />
       <section className="flex flex-col md:flex-row gap-8">
-        <div className="w-[350px] md:w-[950px] md:h-[750px] h-[300px]">
+        <div className="w-[340px] md:w-[950px] md:h-[750px] h-[240px]">
           <Canvas
             shadows
             camera={{ position: [14, 5, 15], fov: 60 }}

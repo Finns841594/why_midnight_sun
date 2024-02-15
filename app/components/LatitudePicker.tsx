@@ -21,7 +21,7 @@ const LatitudePicker = () => {
     set({ rotateX: latitude });
   };
   return (
-    <div className="w-full flex flex-col gap-2">
+    <div className="w-full flex flex-col gap-2 mx-auto">
       <div className="h-[300px] flex flex-row">
         <Slider
           label="latitude"

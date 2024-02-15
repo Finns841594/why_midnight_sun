@@ -7,7 +7,7 @@ import { Divider } from '@nextui-org/react';
 
 const ControlPanel = () => {
   return (
-    <div className="w-[350px] flex flex-col gap-4">
+    <div className="w-[350px] flex flex-col gap-4 pr-2">
       <p className="text-lg font-bold">Select a latitude</p>
       <LatitudePicker />
       <Divider className="mt-4 -mb-2" />
