@@ -40,31 +40,33 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
         step: 0.01,
       }, // relates to time of a year
     });
-
-  useFrame((state, delta) => {
-    // code snipt for animation
-    const targetX = fromDegreeToRadian(-rotateX);
-    const currentX = skySphereRef.current.rotation.x;
-    const lerpFactor = 0.1;
-    const newX = MathUtils.lerp(currentX, targetX, lerpFactor);
-
-    skySphereRef.current.rotation.set(newX, rotateY, rotateZ);
-  });
-
   const [caculatedMovingRadus, setCaculatedMovingRadus] = useState(() =>
     caculateMovingRadiusByOffset(movingRadius, offsetFromEquater)
   );
 
-  useEffect(() => {
-    setCaculatedMovingRadus(
-      caculateMovingRadiusByOffset(movingRadius, offsetFromEquater)
-    );
-  }, [movingRadius, offsetFromEquater]);
+  useFrame((state, delta) => {
+    // Smooth rotation for skySphereRef
+    const targetX = fromDegreeToRadian(-rotateX);
+    const currentX = skySphereRef.current.rotation.x;
+    const lerpFactorSkySphereRef = 0.05;
+    const newX = MathUtils.lerp(currentX, targetX, lerpFactorSkySphereRef);
+    skySphereRef.current.rotation.set(newX, rotateY, rotateZ);
+
+    // Smooth transition for skyClockRef
+    const targetZ = offsetFromEquater;
+    const currentZ = skyClockRef.current.position.z;
+    const lerpFactorSkyClockRef = 0.02;
+    const newZ = MathUtils.lerp(currentZ, targetZ, lerpFactorSkyClockRef);
+    const newMovingRadius = caculateMovingRadiusByOffset(movingRadius, newZ);
+    skyClockRef.current.position.z = newZ;
+
+    setCaculatedMovingRadus(newMovingRadius);
+  });
 
   return (
     <>
       <mesh {...props} ref={skySphereRef}>
-        <mesh ref={skyClockRef} position={[0, 0, offsetFromEquater]}>
+        <mesh ref={skyClockRef}>
           <Sun movingRadius={caculatedMovingRadus} />
           <SkyClock radius={caculatedMovingRadus} />
         </mesh>

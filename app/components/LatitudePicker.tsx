@@ -17,9 +17,6 @@ const LatitudePicker = () => {
     let newValue = Array.isArray(value) ? value[0] : value;
     set({ rotateX: newValue });
   };
-  const handleSelectLatitude = (latitude: number) => {
-    set({ rotateX: latitude });
-  };
   return (
     <div className="w-full flex flex-col gap-2 mx-auto">
       <div className="h-[300px] flex flex-row">
@@ -66,7 +63,7 @@ const LatitudePicker = () => {
           {buttonsInfo.map(button => (
             <Button
               key={button.name}
-              onClick={() => handleSelectLatitude(button.latitude)}
+              onClick={() => handleChangeLatitude(button.latitude)}
             >
               {button.name}
             </Button>
