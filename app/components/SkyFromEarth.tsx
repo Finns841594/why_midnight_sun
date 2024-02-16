@@ -9,12 +9,14 @@ import {
   fromDegreeToRadian,
 } from '../util/utilies';
 import SkyClock from './SkyClock';
+import { MathUtils } from 'three';
 
 const sunMoveSpeed = 1;
 const defaultMovingRadius = 10;
 
 function SkyFromEarth(props: ThreeElements['mesh']) {
   const skySphereRef = useRef<THREE.Mesh>(null!);
+  const skyClockRef = useRef<THREE.Mesh>(null!);
   const { rotateX, rotateY, rotateZ, movingRadius, offsetFromEquater } =
     useControls({
       rotateX: {
@@ -40,11 +42,13 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
     });
 
   useFrame((state, delta) => {
-    skySphereRef.current.rotation.set(
-      fromDegreeToRadian(-rotateX),
-      rotateY,
-      rotateZ
-    );
+    // code snipt for animation
+    const targetX = fromDegreeToRadian(-rotateX);
+    const currentX = skySphereRef.current.rotation.x;
+    const lerpFactor = 0.1;
+    const newX = MathUtils.lerp(currentX, targetX, lerpFactor);
+
+    skySphereRef.current.rotation.set(newX, rotateY, rotateZ);
   });
 
   const [caculatedMovingRadus, setCaculatedMovingRadus] = useState(() =>
@@ -52,7 +56,6 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
   );
 
   useEffect(() => {
-    // let offsetFromEquaterControlled = dateInNumber * movingRadius * Math.sin(tropicRadian) / 365
     setCaculatedMovingRadus(
       caculateMovingRadiusByOffset(movingRadius, offsetFromEquater)
     );
@@ -61,14 +64,10 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
   return (
     <>
       <mesh {...props} ref={skySphereRef}>
-        <Sun
-          movingRadius={caculatedMovingRadus}
-          position={[0, 0, offsetFromEquater]}
-        />
-        <SkyClock
-          radius={caculatedMovingRadus}
-          position={[0, 0, offsetFromEquater]}
-        />
+        <mesh ref={skyClockRef} position={[0, 0, offsetFromEquater]}>
+          <Sun movingRadius={caculatedMovingRadus} />
+          <SkyClock radius={caculatedMovingRadus} />
+        </mesh>
         <Sphere args={[movingRadius]}>
           <meshStandardMaterial
             transparent
