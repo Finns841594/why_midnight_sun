@@ -55,7 +55,7 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
     // Smooth transition for skyClockRef
     const targetZ = offsetFromEquater;
     const currentZ = skyClockRef.current.position.z;
-    const lerpFactorSkyClockRef = 0.02;
+    const lerpFactorSkyClockRef = 0.05;
     const newZ = MathUtils.lerp(currentZ, targetZ, lerpFactorSkyClockRef);
     const newMovingRadius = caculateMovingRadiusByOffset(movingRadius, newZ);
     skyClockRef.current.position.z = newZ;
