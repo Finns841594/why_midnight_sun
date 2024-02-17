@@ -65,7 +65,7 @@ const DatePicker = () => {
           <Button
             key={item.label}
             className="sm w-[150px]"
-            variant="bordered"
+            variant={item.value === dateInNumber ? 'solid' : 'ghost'}
             onClick={e => handleChangeDate(item.value)}
           >
             {item.label}

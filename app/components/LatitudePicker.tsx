@@ -59,10 +59,11 @@ const LatitudePicker = () => {
         </div>
       </div>
       <div>
-        <ButtonGroup className="sm" variant="bordered">
+        <ButtonGroup className="sm">
           {buttonsInfo.map(button => (
             <Button
               key={button.name}
+              variant={button.latitude === rotateX ? 'solid' : 'ghost'}
               onClick={() => handleChangeLatitude(button.latitude)}
             >
               {button.name}
