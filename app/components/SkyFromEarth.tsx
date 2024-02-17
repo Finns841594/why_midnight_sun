@@ -1,5 +1,5 @@
-import { ThreeElements, useFrame, useThree } from '@react-three/fiber';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import { ThreeElements, useFrame } from '@react-three/fiber';
+import React, { useRef, useState } from 'react';
 import Sun from './Sun';
 import { useControls } from 'leva';
 import { Sphere } from '@react-three/drei';
@@ -11,35 +11,25 @@ import {
 import SkyClock from './SkyClock';
 import { MathUtils } from 'three';
 
-const sunMoveSpeed = 1;
-const defaultMovingRadius = 10;
+const movingRadius = 10;
 
 function SkyFromEarth(props: ThreeElements['mesh']) {
   const skySphereRef = useRef<THREE.Mesh>(null!);
   const skyClockRef = useRef<THREE.Mesh>(null!);
-  const { rotateX, rotateY, rotateZ, movingRadius, offsetFromEquater } =
-    useControls({
-      rotateX: {
-        value: 0,
-        min: -90,
-        max: 90,
-        step: 1,
-      }, // relates to latitude
-      rotateY: { value: 0, min: -2, max: 2, step: 0.1 },
-      rotateZ: { value: 0, min: -2, max: 2, step: 0.1 },
-      movingRadius: {
-        value: defaultMovingRadius,
-        min: 1,
-        max: 2 * defaultMovingRadius,
-        step: 0.2,
-      },
-      offsetFromEquater: {
-        value: 0,
-        min: -distanceOffsetFromEquaterByDegree(23.5),
-        max: distanceOffsetFromEquaterByDegree(23.5),
-        step: 0.01,
-      }, // relates to time of a year
-    });
+  const { rotateX, offsetFromEquater } = useControls({
+    rotateX: {
+      value: 0,
+      min: -90,
+      max: 90,
+      step: 1,
+    }, // relates to latitude
+    offsetFromEquater: {
+      value: 0,
+      min: -distanceOffsetFromEquaterByDegree(23.5),
+      max: distanceOffsetFromEquaterByDegree(23.5),
+      step: 0.01,
+    }, // relates to time of a year
+  });
   const [caculatedMovingRadus, setCaculatedMovingRadus] = useState(() =>
     caculateMovingRadiusByOffset(movingRadius, offsetFromEquater)
   );
@@ -50,7 +40,7 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
     const currentX = skySphereRef.current.rotation.x;
     const lerpFactorSkySphereRef = 0.05;
     const newX = MathUtils.lerp(currentX, targetX, lerpFactorSkySphereRef);
-    skySphereRef.current.rotation.set(newX, rotateY, rotateZ);
+    skySphereRef.current.rotation.x = newX;
 
     // Smooth transition for skyClockRef
     const targetZ = offsetFromEquater;
@@ -59,7 +49,6 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
     const newZ = MathUtils.lerp(currentZ, targetZ, lerpFactorSkyClockRef);
     const newMovingRadius = caculateMovingRadiusByOffset(movingRadius, newZ);
     skyClockRef.current.position.z = newZ;
-
     setCaculatedMovingRadus(newMovingRadius);
   });
 

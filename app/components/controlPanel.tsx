@@ -18,9 +18,7 @@ const ControlPanel = () => {
       <p>WIP</p>
       <Leva
         fill // default = false,  true makes the pane fill the parent dom node it's rendered in
-        flat // default = false,  true removes border radius and shadow
-        collapsed // default = false, when true the GUI is collpased
-        hidden // default = false, when true the GUI is hidden
+        hidden // default = false, when true the GUI is hidden, leave it here for easy debugging in the furture development
       />
     </div>
   );

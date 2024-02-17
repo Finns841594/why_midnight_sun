@@ -1,4 +1,4 @@
-import { Divider, Link } from '@nextui-org/react';
+import { Divider } from '@nextui-org/react';
 
 const Header = () => {
   return (

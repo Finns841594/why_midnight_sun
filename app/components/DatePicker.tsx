@@ -26,7 +26,7 @@ const daysMark = [
 ];
 
 const DatePicker = () => {
-  const [dateInNumber, setDateInNumber] = useState<number>(79);
+  const [dateInNumber, setDateInNumber] = useState<number>(79); // Start from spring equinox
   const [{ offsetFromEquater, movingRadius }, set] = useControls(() => ({
     offsetFromEquater: 0,
     movingRadius: 10,
