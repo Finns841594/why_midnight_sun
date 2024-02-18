@@ -42,7 +42,7 @@ const DatePicker = () => {
     set({ offsetFromEquater: caculatedNewValue });
   };
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-4 items-center">
       <Slider
         label="Date"
         color="foreground"

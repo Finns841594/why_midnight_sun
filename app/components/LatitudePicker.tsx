@@ -18,8 +18,8 @@ const LatitudePicker = () => {
     set({ rotateX: newValue });
   };
   return (
-    <div className="w-full flex flex-col gap-2 mx-auto">
-      <div className="h-[300px] flex flex-row">
+    <div className="w-full flex flex-col gap-2 items-center ">
+      <div className="h-[300px] flex flex-row justify-center">
         <Slider
           label="latitude"
           color="foreground"
@@ -58,19 +58,17 @@ const LatitudePicker = () => {
           </p>
         </div>
       </div>
-      <div>
-        <ButtonGroup className="sm">
-          {buttonsInfo.map(button => (
-            <Button
-              key={button.name}
-              variant={button.latitude === rotateX ? 'solid' : 'ghost'}
-              onClick={() => handleChangeLatitude(button.latitude)}
-            >
-              {button.name}
-            </Button>
-          ))}
-        </ButtonGroup>
-      </div>
+      <ButtonGroup className="sm">
+        {buttonsInfo.map(button => (
+          <Button
+            key={button.name}
+            variant={button.latitude === rotateX ? 'solid' : 'ghost'}
+            onClick={() => handleChangeLatitude(button.latitude)}
+          >
+            {button.name}
+          </Button>
+        ))}
+      </ButtonGroup>
     </div>
   );
 };

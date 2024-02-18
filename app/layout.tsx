@@ -19,9 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} flex flex-col p-4 md:p-8 gap-8 mx-auto`}
-      >
+      <body className={`${inter.className} flex flex-col p-4 md:p-8 gap-4`}>
         <Header />
         <Providers>{children}</Providers>
         <Footer />

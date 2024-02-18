@@ -19,6 +19,7 @@ const ControlPanel = () => {
       <Leva
         fill // default = false,  true makes the pane fill the parent dom node it's rendered in
         hidden // default = false, when true the GUI is hidden, leave it here for easy debugging in the furture development
+        collapsed
       />
     </div>
   );
