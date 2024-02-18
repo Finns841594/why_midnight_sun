@@ -53,8 +53,15 @@ const LatitudePicker = () => {
             />
           </MapContainer>
           <p className="p-2 text-xxs mt-1">
-            PS: This is based on a Web Mercator projection map, which causes the
-            moving of latitude line is not linear.
+            Note: The latitude line movement on this{' '}
+            <a
+              rel="externel"
+              href="https://en.wikipedia.org/wiki/Web_Mercator_projection"
+            >
+              Web Mercator
+            </a>{' '}
+            map isn&lsquo;t linear with the slider due to the projection&lsquo;s
+            distortion.
           </p>
         </div>
       </div>
