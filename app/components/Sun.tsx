@@ -1,9 +1,13 @@
 import { Sphere } from '@react-three/drei';
 import { MeshProps, useFrame } from '@react-three/fiber';
-import { useRef, useState } from 'react';
-import { Vector3 } from 'three';
+import { useContext, useRef } from 'react';
+import { AppContext } from '../AppContext';
+import {
+  calculateTimeFromPosition,
+  getPositionFromTime,
+} from '../util/utilies';
 
-const sunMoveSpeed = 1;
+const sunMoveSpeed = 20;
 
 interface SunProps extends MeshProps {
   movingRadius: number;
@@ -11,27 +15,33 @@ interface SunProps extends MeshProps {
 
 function Sun({ movingRadius, ...props }: SunProps) {
   const meshRef = useRef<THREE.Mesh>(null!);
-  const [angle, setAngle] = useState(0);
 
-  const [tracePositions, setTracePositions] = useState<Vector3[]>([]);
+  const { sunPositions, setSunPositions, isSettingSunPosition } =
+    useContext(AppContext);
 
   useFrame((state, delta) => {
-    setAngle(angle + (delta * 1 * sunMoveSpeed) / movingRadius);
-    const x = movingRadius * Math.cos(angle);
-    const y = movingRadius * Math.sin(angle);
-
-    meshRef.current.position.set(x, y, meshRef.current.position.z);
-
-    const globalPosition = new Vector3();
-    meshRef.current.getWorldPosition(globalPosition); // I don't know it before that one can assign value like this
-    setTracePositions(prevPositions =>
-      [...prevPositions, globalPosition.clone()].slice(-10)
-    );
+    if (!isSettingSunPosition) {
+      let currentTime = calculateTimeFromPosition(
+        sunPositions.x,
+        sunPositions.y,
+        movingRadius
+      );
+      currentTime += delta * sunMoveSpeed;
+      let { x, y } = getPositionFromTime(currentTime, movingRadius);
+      meshRef.current.position.set(x, y, 0);
+      setSunPositions(meshRef.current.position.clone());
+    } else {
+      meshRef.current.position.set(
+        (sunPositions.x * movingRadius) / 10, // the cordinate stores in the state are based on radius is 10, so here needs an extra calculation
+        (sunPositions.y * movingRadius) / 10,
+        0
+      );
+    }
   });
   return (
     <mesh {...props} ref={meshRef} scale={1}>
       <pointLight
-        position={tracePositions[tracePositions.length - 1]}
+        position={sunPositions}
         decay={0}
         intensity={2 * Math.PI}
         castShadow
