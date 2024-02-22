@@ -31,7 +31,7 @@ function Ground() {
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, -0.02, 0]}
       >
-        <meshStandardMaterial transparent opacity={0.5} side={DoubleSide} />
+        <meshBasicMaterial transparent opacity={0.5} side={DoubleSide} />
       </Circle>
       {directionMarkData.map(item => {
         return (

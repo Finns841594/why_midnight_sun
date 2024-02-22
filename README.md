@@ -10,6 +10,8 @@ So, I built this interactive app to help people like me to understand this pheno
 
 ## App Introduction
 
+I wrote an article that reveals the core part of this app, [here](https://dirt-woodwind-424.notion.site/Why-Midnight-Sun-Dev-Notes-f6bfb29cc9af46a4b9dac9f4f5441e87?pvs=25)
+
 ### Science part behind this app
 
 Midnight Sun is primarily observed within the Arctic and Antarctic Circles, where the sun remains visible at the local midnight around the summer solstice. The app leverages interactive 3D models and simulations to demonstrate how the sun is moving in the different time of the year at the different places. Users can manipulate variables such as time of year and geographical latitude to see how these factors influence the occurrence of the Midnight Sun, thereby gaining a deeper understanding of this.
