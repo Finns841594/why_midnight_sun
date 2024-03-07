@@ -10,7 +10,7 @@ So, I built this interactive app to help people like me to understand this pheno
 
 ## App Introduction
 
-I wrote an article that reveals the core part of this app, [here](https://dirt-woodwind-424.notion.site/Why-Midnight-Sun-Dev-Notes-f6bfb29cc9af46a4b9dac9f4f5441e87?pvs=25)
+I wrote an article that reveals the core part of this app, [here](https://feng-y.notion.site/Why-Midnight-Sun-Dev-Notes-f6bfb29cc9af46a4b9dac9f4f5441e87?pvs=4)
 
 ### Science part behind this app
 
