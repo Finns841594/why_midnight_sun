@@ -36,7 +36,7 @@ function SkyFromEarth(props: ThreeElements['mesh']) {
 
   useFrame((state, delta) => {
     // Smooth rotation for skySphereRef
-    const targetX = fromDegreeToRadian(-rotateX);
+    const targetX = fromDegreeToRadian(rotateX);
     const currentX = skySphereRef.current.rotation.x;
     const lerpFactorSkySphereRef = 0.05;
     const newX = MathUtils.lerp(currentX, targetX, lerpFactorSkySphereRef);
